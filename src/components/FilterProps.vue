@@ -1,0 +1,281 @@
+<template>
+  <div class='filter-box' v-bind:class="{'show': filterShow}" >
+      <div class="filtering">
+        <div>Filter</div>
+        <div>
+           <div>Specialization</div>
+           <div v-bind:key="spec" v-for="spec in Object.keys(specs)">
+             <label v-bind:for="specs[spec]">
+               <input type="checkbox" v-model="specs[spec]" v-bind:id="specs[spec]"/>
+               <div>{{spec}}</div>
+             </label>
+           </div>
+        </div>
+        <div>
+           <div>Rating</div>
+           <div>
+             <label for="rateFive">
+               <input type="checkbox" v-model="rate['five']" id="rateFive"/>
+               <div><span class="las la-star" /><span class="las la-star" /><span class="las la-star" /><span class="las la-star" /><span class="las la-star" /></div>
+             </label>
+             <label for="rateFour">
+               <input type="checkbox" v-model="rate['four']" id="rateFour"/>
+               <div><span class="las la-star" /><span class="las la-star" /><span class="las la-star" /><span class="las la-star" /></div>
+             </label>
+             <label for="rateThree">
+               <input type="checkbox" v-model="rate['three']" id="rateThree"/>
+               <div><span class="las la-star" /><span class="las la-star" /><span class="las la-star" /></div>
+             </label>
+             <label for="rateTwo">
+               <input type="checkbox" v-model="rate['two']" id="rateTwo"/>
+               <div><span class="las la-star" /><span class="las la-star" /></div>
+             </label>
+              <label for="rateOne">
+               <input type="checkbox" v-model="rate['one']" id="rateOne"/>
+               <div><span class="las la-star" /></div>
+             </label>
+           </div>
+        </div>
+        <div>
+           <div>Language</div>
+           <div v-bind:key="lang" v-for="lang in Object.keys(langs)">
+             <label v-bind:for="langs[lang]">
+               <input type="checkbox" v-model="langs[lang]" v-bind:id="langs[lang]"/>
+               <div>{{lang}}</div>
+             </label>
+           </div>
+        </div>
+        <div>
+           <div>Price</div>
+           <div>
+             <div>
+               <div>From:</div>
+               <input v-model="price['from']" class="value" placeholder="0" />
+             </div>
+             <div>
+               <div>To:</div>
+               <input v-bind:placeholder="price['to']" class="value" v-model="price['to']" />
+             </div>
+           </div>
+        </div>
+      </div>
+      <div class="sorting">
+        <div>Sort</div>
+        <div>
+            <div>Price</div>
+            <div>
+              <label for="fromHigh">
+                <input type="radio" value="desc" id="fromHigh" v-model="priceSort" :checked="sorted['desc']"/>
+                <div>From high to low</div>
+              </label>
+              <label for="fromLow">
+                <input type="radio" value="asc" id="fromLow" v-model="priceSort" :checked="sorted['asc']" />
+                <div>From low to high</div>
+              </label>
+           </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <div class="btn-apply" v-on:click="applyFilters">Apply</div>
+      </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: "FilterProps",
+    props: [
+      "filterShow"
+    ],
+    data(){
+      return {
+        specs: {},
+        langs: {},
+        rate: {
+          one: false,
+          two: false,
+          three: false,
+          four: false,
+          five: false
+        },
+        price: {
+          from: 0,
+          to: 0
+        },
+        sorted: {
+          desc: false,
+          asc: false
+        },
+        priceSort: "",
+        maxPrice: 0,
+        }
+    },
+    methods:{
+      applyFilters(){
+        this.filterShow = false;
+        let newQueryFilters = {};
+        newQueryFilters['specs'] = Object.keys(this.specs).filter((spec)=>this.specs[spec]===true);
+        newQueryFilters['langs'] = Object.keys(this.langs).filter((lang)=>this.langs[lang]===true);
+        newQueryFilters['rate'] = Object.keys(this.rate).filter((rating)=>this.rate[rating]===true);
+        if(this.price['from']!==0) newQueryFilters['from'] = this.price['from'];
+        if(this.price['to']!==this.maxPrice) newQueryFilters['to'] = this.price['to'];
+        if (this.priceSort!=="") {
+          newQueryFilters['sort'] = this.priceSort;
+        }
+        this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, ...newQueryFilters}});
+      },
+      getFilters(){
+       axios
+        .get('https://calmsie.pl/?format=json')
+        .then(res => 
+        { 
+          let newSpecs = [];
+          res.data.map((data)=>newSpecs = newSpecs.concat(data.specializations));
+          newSpecs = newSpecs.filter((item, pos)=> newSpecs.indexOf(item)== pos).sort();
+          newSpecs.map((spec)=>this.specs[spec]=false);
+
+          let newLangs = [];
+          res.data.map((data)=>newLangs = newLangs.concat(data.languages));
+          newLangs = newLangs.filter((item, pos)=> newLangs.indexOf(item)== pos).sort();
+          newLangs.map((lang)=>this.langs[lang]=false);
+  
+          let allPrices = res.data.map((data)=>data.price_per_hour).sort((a,b)=>b-a);
+          this.price['to']=allPrices[0];
+          this.maxPrice=allPrices[0];
+        })
+        .catch(error => console.log(error));
+      }
+    },
+    mounted: function(){
+      this.getFilters();
+    }
+}
+</script>
+
+<style scoped>
+.filter-box{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 156px;
+    left: 24px;
+    height: 0;
+    width: calc(17vw + 2rem);
+    min-width: calc(217px + 2rem);
+    background-color: #ffffff;
+    z-index: 2;
+    transition: height .3s;
+    border-radius: 0 0 10px 10px;
+    color: #000000;
+    border: 1px solid #0c72b138;
+    box-shadow: 0 0 16px 10px #67676728;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.show{
+  height: 550px;
+}
+
+.filtering{
+  margin-top: .8rem;
+}
+
+.sorting,
+.filtering{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.sorting > *,
+.filtering > *{
+  margin: 0 2rem;
+}
+
+.sorting > :first-child,
+.filtering > :first-child{
+  line-height: 2.1rem;
+  font-size: 1.2rem;
+  color: #00000077;
+}
+
+.sorting> * > :first-child,
+.filtering> * > :first-child{
+  line-height: 2rem;
+  font-size: 1.25rem;
+  margin: 0 .5rem;
+}
+
+.sorting> :not(:first-child) > :not(:first-child) > *,
+.filtering> :not(:first-child) > :not(:first-child) > * {
+  margin: .13rem .7rem;
+}
+
+.sorting> :nth-child(2),
+.sorting> :nth-child(2) > *,
+.filtering> :not(:first-child),
+.filtering> :not(:first-child) > *{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .5rem;
+}
+
+.sorting> :nth-child(2) > * > *,
+.filtering> :not(:first-child) > * > *{
+  display: flex;
+  flex-direction: row;
+}
+
+.sorting> :not(:first-child) > :not(:first-child) > * >:first-child,
+.filtering> :not(:first-child) > :not(:first-child) > * >:first-child{
+  margin-right: .5rem;
+}
+
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-apply{
+  padding: .5rem 4rem;
+  margin-bottom: .5rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #2381c4d4;
+  border: 1.5px solid #2381c4d4;
+}
+
+.btn-apply{
+  background-color: #2381c4d4;
+  color: #ffffff;
+}
+
+.btn-apply:hover{
+  cursor: pointer;
+}
+
+span.las{
+  margin: 0;
+  padding: 0;
+}
+
+.filtering > :last-child > :last-child > :last-child > :last-child{
+  margin-left: 1.33rem;
+}
+
+label:hover{
+  cursor: pointer;
+}
+
+.value{
+  width: 110px;
+}
+
+</style>
