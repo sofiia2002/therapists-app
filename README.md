@@ -19,7 +19,7 @@ Także można sortować wyniki według:
 <br/>
 Również można wyszukiwać wyniki według specjalizacji.
 <br/><br/>
-Aplikacja pozwala wybierać dowolnej opcji dla każdego z filtrów oraz aplikować jednocześnie kilka trybów sortowania wyników.
+Aplikacja pozwala wybierać dowolnej ilości opcji dla każdego z filtrów oraz aplikować jednocześnie kilka trybów sortowania wyników.
 Zaaplikowane filtry można wyciśczyć za pomocą odpowiedniego przycisku.
 
 ## Zasady działania
