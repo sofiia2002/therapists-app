@@ -80,5 +80,3 @@ Przy kliknięciu na odpowiedni dzień istnieje możliwość obejrzenia dostępny
 npm i
 npm run serve
 ```
-
-#### Z wyrazami szacunku, Levchenko Sonya
