@@ -179,6 +179,11 @@ export default {
     mounted: function(){
       this.getFilters();
     },
+     watch: { $route(to, from) {
+    if (to !== from) {
+      this.filterShow = false;
+    } 
+  }}
 }
 </script>
 
@@ -189,7 +194,6 @@ export default {
     flex-direction: column;
     background-color: #ffffff;
     z-index: 2;
-    transition: height .3s;
     border-radius: 0 0 10px 10px;
     color: #000000;
     border: 1px solid #0c72b138;
@@ -206,26 +210,29 @@ export default {
     height: 0;
     width: calc(17vw + 2rem);
     min-width: calc(217px + 2rem);
-    
+    transition: height .3s;
+}
+
+.show{
+  max-height: 1437px;
+  height: 85vh;
 }
 }
 
 @media (max-width: 700px) {
 .filter-box{
     position: absolute;
-    top: 213px;
-    left: 5vw;
-    height: 0;
-    width: 89vw;
-}
-
-.filter-box > label{
-    text-align: center;
-}
+    top: 173px;
+    right: -250px;
+    height: calc(100vh - 150px);
+    width: 250px;
+    transition: right .3s;
 }
 
 .show{
-  height: 550px;
+    right: 0px;
+}
+
 }
 
 .filtering{
@@ -287,7 +294,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .btn-apply,

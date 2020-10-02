@@ -48,7 +48,6 @@ export default {
   watch: { $route(to, from) {
     if (to !== from) {
       this.setSearchValue();
-      this.filterShow = false;
     } 
   }}
 }
@@ -82,7 +81,7 @@ export default {
 
 
 .input{
-    width: calc(73vw - 100px - 3rem);
+    width: calc(64vw - 100px - 3rem);
     padding: .75rem 1rem .55rem 1rem;
     background-color: transparent;
     border: none;
@@ -93,10 +92,11 @@ export default {
 
 
 .search-bar> :first-child{
-    width: calc(73vw - 100px - 3rem);
+    width: calc(64vw - 100px - 3rem);
     background-color: #f6fdff3b;
     border-radius: 10px;
-    margin-left: 6vw;
+    margin-right: auto;
+    margin-left: calc(20% - 24px);
 }
 
 
@@ -122,17 +122,17 @@ export default {
 @media (max-width: 701px) {
   .search-bar{
     display: flex;
-    flex-direction: column;
     align-items: center;
     padding: .5rem 1rem;
     color: #ffffff;
     background-color: #1861a9b2;
     z-index: 3;
+    overflow: hidden;
 }
 
 
 .input{
-    width: 85vw;
+    width: 77vw;
     padding: .75rem 1rem .55rem 1rem;
     background-color: transparent;
     border: none;
@@ -143,7 +143,7 @@ export default {
 
 
 .search-bar> :first-child{
-    width: 90vw;
+    width: 82vw;
     background-color: #f6fdff3b;
     border-radius: 10px;
 }
@@ -155,13 +155,18 @@ export default {
     align-items: center;
     font-weight: lighter;
     letter-spacing: .1rem;
-    width: 85vw;
     margin-top: .5rem;
+    margin-bottom: .5rem;
     margin-left: 1rem;
-    padding: 1.3rem 1rem 1.1rem 1rem;
-    margin-right: 1rem;
+    padding: 1rem 0.4rem 1rem 1.2rem;
     background-color: #20568c63;
+    border-radius: 10px;
     transition: background-color .1s;
+}
+
+
+.filter-container > :last-child{
+  display: none;
 }
 }
 
