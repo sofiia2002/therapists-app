@@ -50,11 +50,11 @@
            <div>
              <div>
                <div>From:</div>
-               <input v-model="price['from']" class="value" placeholder="0" />
+               <input v-model="price['from']" class="value" @keypress="isNumber($event)"/>
              </div>
              <div>
                <div>To:</div>
-               <input v-bind:placeholder="price['to']" class="value" v-model="price['to']" />
+               <input class="value" v-model="price['to']" @keypress="isNumber($event)">
              </div>
            </div>
         </div>
@@ -64,12 +64,23 @@
         <div>
             <div>Price</div>
             <div>
-              <label for="fromHigh">
-                <input type="radio" value="desc" id="fromHigh" v-model="priceSort" :checked="sorted['desc']"/>
+              <label for="fromHighPrice">
+                <input type="radio" value="desc" id="fromHighPrice" v-model="priceSort"/>
                 <div>From high to low</div>
               </label>
-              <label for="fromLow">
-                <input type="radio" value="asc" id="fromLow" v-model="priceSort" :checked="sorted['asc']" />
+              <label for="fromLowPrice">
+                <input type="radio" value="asc" id="fromLowPrice" v-model="priceSort"/>
+                <div>From low to high</div>
+              </label>
+           </div>
+           <div>Rate</div>
+            <div>
+              <label for="fromHighRate">
+                <input type="radio" value="desc" id="fromHighRate" v-model="rateSort"/>
+                <div>From high to low</div>
+              </label>
+              <label for="fromLowRate">
+                <input type="radio" value="asc" id="fromLowRate" v-model="rateSort"/>
                 <div>From low to high</div>
               </label>
            </div>
@@ -77,6 +88,7 @@
       </div>
       <div class="buttons">
         <div class="btn-apply" v-on:click="applyFilters">Apply</div>
+        <div class="btn-reset" v-on:click="resetFilters">Reset</div>
       </div>
   </div>
 </template>
@@ -104,11 +116,8 @@ export default {
           from: 0,
           to: 0
         },
-        sorted: {
-          desc: false,
-          asc: false
-        },
         priceSort: "",
+        rateSort: "",
         maxPrice: 0,
         }
     },
@@ -119,12 +128,19 @@ export default {
         newQueryFilters['specs'] = Object.keys(this.specs).filter((spec)=>this.specs[spec]===true);
         newQueryFilters['langs'] = Object.keys(this.langs).filter((lang)=>this.langs[lang]===true);
         newQueryFilters['rate'] = Object.keys(this.rate).filter((rating)=>this.rate[rating]===true);
-        if(this.price['from']!==0) newQueryFilters['from'] = this.price['from'];
-        if(this.price['to']!==this.maxPrice) newQueryFilters['to'] = this.price['to'];
+        if(this.price['from']!==""&&this.price['from']!=0) newQueryFilters['from'] = this.price['from'];
+        if(this.price['to']!==""&&this.price['from']!=this.maxPrice) newQueryFilters['to'] = this.price['to'];
         if (this.priceSort!=="") {
-          newQueryFilters['sort'] = this.priceSort;
+          newQueryFilters['priceSort'] = this.priceSort;
+        }
+        if (this.rateSort!=="") {
+          newQueryFilters['rateSort'] = this.rateSort;
         }
         this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, ...newQueryFilters}});
+      },
+      resetFilters(){
+        this.getFilters();
+        this.$router.push({ path: 'search', query: {q: this.$router.currentRoute.query.q, page: this.$router.currentRoute.query.page}});
       },
       getFilters(){
        axios
@@ -144,13 +160,25 @@ export default {
           let allPrices = res.data.map((data)=>data.price_per_hour).sort((a,b)=>b-a);
           this.price['to']=allPrices[0];
           this.maxPrice=allPrices[0];
+
+          this.priceSort= "";
+          this.rateSort= "";
         })
         .catch(error => console.log(error));
+      },
+      isNumber(e) {
+        e = (e) ? e : window.event;
+        var charCode = (e.which) ? e.which : e.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+          e.preventDefault();
+        } else {
+          return true;
+        }
       }
     },
     mounted: function(){
       this.getFilters();
-    }
+    },
 }
 </script>
 
@@ -243,7 +271,8 @@ export default {
   margin-bottom: 1rem;
 }
 
-.btn-apply{
+.btn-apply,
+.btn-reset{
   padding: .5rem 4rem;
   margin-bottom: .5rem;
   border-radius: 10px;
@@ -257,7 +286,8 @@ export default {
   color: #ffffff;
 }
 
-.btn-apply:hover{
+.btn-apply:hover,
+.btn-reset:hover{
   cursor: pointer;
 }
 

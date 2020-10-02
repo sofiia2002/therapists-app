@@ -43,14 +43,14 @@ export default {
     Doctors
   },
   props: [
-    "query",
-    "filterShow"
+    "query"
   ],
   data() { 
     return{
       therapistsOnPage: [],
       therapistsPerPage: 7,
       therapistsNumber: 0,
+      therapists: [],
     }
   },
   mounted: function(){
@@ -135,13 +135,21 @@ export default {
                 )
               }
 
-              if (this.query.sort==="asc"){
+              if (this.query.priceSort==="asc"){
                 therapists = therapists.sort((a,b)=>a.price_per_hour-b.price_per_hour)
               }
-              if (this.query.sort==="desc"){
+              if (this.query.priceSort==="desc"){
                 therapists = therapists.sort((a,b)=>b.price_per_hour-a.price_per_hour)
               }
 
+              if (this.query.rateSort==="asc"){
+                therapists = therapists.sort((a,b)=>a.rating-b.rating)
+              }
+              if (this.query.rateSort==="desc"){
+                therapists = therapists.sort((a,b)=>b.rating-a.rating)
+              }
+
+              this.therapists = therapists;
               this.therapistsOnPage = therapists.slice((this.query.page-1)*this.therapistsPerPage, this.therapistsPerPage*this.query.page);
               this.therapistsNumber = therapists.length;
             }
@@ -152,7 +160,13 @@ export default {
   },
   watch: { $route(to, from) {
      if(to !== from) {
-      this.getUpdatedData();
+      let newTo = {...to.query, page: ""};
+      let newFrom = {...from.query, page: ""};
+      if (JSON.stringify(newTo)!==JSON.stringify(newFrom)) {
+        this.getUpdatedData();
+      } else {
+        this.therapistsOnPage = this.therapists.slice((this.query.page-1)*this.therapistsPerPage, this.therapistsPerPage*this.query.page);
+      }
      } 
     } 
   },
