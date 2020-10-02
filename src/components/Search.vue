@@ -1,14 +1,14 @@
 <template>
   <div class="search-bar" >
+      <div v-on:click="filterShow=false">
+        <input placeholder="Search by..." class="input" v-model="inputValue" v-on:keydown.13="submit">
+        <div class="las la-search"></div>
+      </div>
         <div v-on:click="filterShow=!filterShow" class="filter-container">
           <div class="las la-filter"></div>
           <div>Filter</div>
         </div>
       <FilterProps v-bind:filterShow="filterShow"/>
-      <div v-on:click="filterShow=false">
-        <input placeholder="Search by..." class="input" v-model="inputValue" v-on:keydown.13="submit">
-        <div class="las la-search"></div>
-      </div>
   </div>
 </template>
 
@@ -55,15 +55,6 @@ export default {
 </script>
 
 <style scoped>
-.input{
-    width: calc(73vw - 100px - 3rem);
-    padding: .75rem 1rem .55rem 1rem;
-    background-color: transparent;
-    border: none;
-    outline: transparent;
-    color: #ffffff;
-    font-size: 1.1rem;
-}
 
 .las{
     font-size: 1.3rem;
@@ -74,19 +65,40 @@ export default {
     font-size: 1.7rem;
 }
 
+.search-bar>*{
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 701px) {
+
 .search-bar{
     display: flex;
     align-items: center;
-    padding: 0 1rem;
     color: #ffffff;
     background-color: #1861a9b2;
     z-index: 3;
 }
 
-.search-bar>*{
-    display: flex;
-    align-items: center;
+
+.input{
+    width: calc(73vw - 100px - 3rem);
+    padding: .75rem 1rem .55rem 1rem;
+    background-color: transparent;
+    border: none;
+    outline: transparent;
+    color: #ffffff;
+    font-size: 1.1rem;
 }
+
+
+.search-bar> :first-child{
+    width: calc(73vw - 100px - 3rem);
+    background-color: #f6fdff3b;
+    border-radius: 10px;
+    margin-left: 6vw;
+}
+
 
 .filter-container{
     display: flex;
@@ -96,22 +108,68 @@ export default {
     letter-spacing: .1rem;
     width: 17vw;
     min-width: 220px;
-    margin-left: .5rem;
+    margin-left:auto;
+    margin-right: 24px;
     padding: 1.3rem 1rem 1.1rem 1rem;
     margin-right: 1rem;
     background-color: #20568c63;
     transition: background-color .1s;
 }
 
+}
+
+
+@media (max-width: 701px) {
+  .search-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem 1rem;
+    color: #ffffff;
+    background-color: #1861a9b2;
+    z-index: 3;
+}
+
+
+.input{
+    width: 85vw;
+    padding: .75rem 1rem .55rem 1rem;
+    background-color: transparent;
+    border: none;
+    outline: transparent;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+
+.search-bar> :first-child{
+    width: 90vw;
+    background-color: #f6fdff3b;
+    border-radius: 10px;
+}
+
+
+.filter-container{
+    display: flex;
+    font-size: 1.2rem;
+    align-items: center;
+    font-weight: lighter;
+    letter-spacing: .1rem;
+    width: 85vw;
+    margin-top: .5rem;
+    margin-left: 1rem;
+    padding: 1.3rem 1rem 1.1rem 1rem;
+    margin-right: 1rem;
+    background-color: #20568c63;
+    transition: background-color .1s;
+}
+}
+
+
+
 .filter-container:hover{
     cursor: pointer;
     background-color: #15457576;
-}
-
-.search-bar> :last-child{
-    width: calc(73vw - 100px - 3rem);
-    background-color: #f6fdff3b;
-    border-radius: 10px;
 }
 
 ::placeholder{

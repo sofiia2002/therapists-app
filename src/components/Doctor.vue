@@ -45,9 +45,20 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 701px) {
 .doctor{
     display: flex;
-    flex-direction: row;
+}
+}
+
+@media (max-width: 700px) {
+.doctor{
+    display: flex;
+    flex-direction: column;
+}
+}
+
+.doctor{
     margin: 1rem .5rem;
     padding: 1rem;
     background-color: #ffffff;
@@ -61,6 +72,7 @@ export default {
 
 .doctor img{
     width: 90px;
+    max-height: 90px;
     margin: .8rem;
 }
 

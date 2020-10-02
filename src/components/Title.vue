@@ -22,6 +22,8 @@ export default {
 
 <style scoped>
 
+
+
 .top-nav{
     display: flex;
     align-items: center;
@@ -29,26 +31,6 @@ export default {
     padding: .1rem 1rem;
 }
 
-.top-nav > :last-child{
-  display: flex;
-  margin-left: 1.5rem;
-}
-
-.top-nav > :last-child > *{
-   padding: .3rem .5rem;
-   margin: 0 1.5rem;
-   font-size: 1.1rem;
-   transition: border .1s;
-   color: #0d3a71;
-}
-.top-nav > :last-child > *:not(.clicked){
-   border-bottom: 1px solid transparent;
-   cursor: pointer;
-}
-
-.top-nav > :last-child >*:hover{
-  border-bottom: 1px solid #0d3a71;
-}
 
 .top-nav > :first-child{
     display: flex;
@@ -65,6 +47,38 @@ export default {
 
 .top-nav > :first-child:hover{
     cursor: pointer;
+}
+
+@media (min-width: 701px) {
+
+.top-nav > :last-child{
+  display: flex;
+  margin-left: 1.5rem;
+}
+
+}
+
+@media (max-width: 700px) {
+  .top-nav > :last-child{
+    display: none;
+  }
+}
+
+
+.top-nav > :last-child > *{
+   padding: .3rem .5rem;
+   margin: 0 1.5rem;
+   font-size: 1.1rem;
+   transition: border .1s;
+   color: #0d3a71;
+}
+.top-nav > :last-child > *:not(.clicked){
+   border-bottom: 1px solid transparent;
+   cursor: pointer;
+}
+
+.top-nav > :last-child >*:hover{
+  border-bottom: 1px solid #0d3a71;
 }
 
 .clicked{

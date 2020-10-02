@@ -177,6 +177,7 @@ export default {
 .body{
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 540px);
   align-items: center;
   padding: 1.5rem 0;
   background-color: #f3f8febf;
