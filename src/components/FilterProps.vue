@@ -184,16 +184,9 @@ export default {
 
 <style scoped>
 
-@media (min-width: 701px) {
 .filter-box{
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 150px;
-    right: 17px;
-    height: 0;
-    width: calc(17vw + 2rem);
-    min-width: calc(217px + 2rem);
     background-color: #ffffff;
     z-index: 2;
     transition: height .3s;
@@ -204,26 +197,26 @@ export default {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+@media (min-width: 701px) {
+.filter-box{
+    position: absolute;
+    top: 150px;
+    right: 17px;
+    height: 0;
+    width: calc(17vw + 2rem);
+    min-width: calc(217px + 2rem);
+    
+}
 }
 
 @media (max-width: 700px) {
 .filter-box{
-    display: flex;
-    flex-direction: column;
     position: absolute;
     top: 213px;
     left: 5vw;
     height: 0;
     width: 89vw;
-    background-color: #ffffff;
-    z-index: 2;
-    transition: height .3s;
-    border-radius: 0 0 10px 10px;
-    color: #000000;
-    border: 1px solid #0c72b138;
-    box-shadow: 0 0 16px 10px #67676728;
-    overflow-y: auto;
-    overflow-x: hidden;  
 }
 
 .filter-box > label{
