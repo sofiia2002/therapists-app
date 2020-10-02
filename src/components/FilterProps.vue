@@ -117,7 +117,7 @@ export default {
           to: ""
         },
         priceSort: "",
-        rateSort: "",
+        rateSort: ""
         }
     },
     methods:{
@@ -180,7 +180,7 @@ export default {
       this.getFilters();
     },
      watch: { $route(to, from) {
-    if (to !== from) {
+     if (to !== from) {
       this.filterShow = false;
     } 
   }}
@@ -215,7 +215,7 @@ export default {
 
 .show{
   max-height: 1437px;
-  height: 85vh;
+  height: 77vh;
 }
 }
 

@@ -135,18 +135,26 @@ export default {
                 )
               }
 
-              if (this.query.priceSort==="asc"){
-                therapists = therapists.sort((a,b)=>a.price_per_hour-b.price_per_hour)
-              }
-              if (this.query.priceSort==="desc"){
-                therapists = therapists.sort((a,b)=>b.price_per_hour-a.price_per_hour)
+              switch(this.query.priceSort){
+                case "asc":{ 
+                  therapists = therapists.sort((a,b)=>a.price_per_hour-b.price_per_hour);
+                  break;
+                }
+                case "desc":{
+                  therapists = therapists.sort((a,b)=>b.price_per_hour-a.price_per_hour);
+                  break;
+                }
               }
 
-              if (this.query.rateSort==="asc"){
-                therapists = therapists.sort((a,b)=>a.rating-b.rating)
-              }
-              if (this.query.rateSort==="desc"){
-                therapists = therapists.sort((a,b)=>b.rating-a.rating)
+              switch(this.query.rateSort){
+                case "asc":{ 
+                  therapists = therapists.sort((a,b)=>a.rating-b.rating)
+                  break;
+                }
+                case "desc":{
+                  therapists = therapists.sort((a,b)=>b.rating-a.rating)
+                  break;
+                }
               }
 
               this.therapists = therapists;
