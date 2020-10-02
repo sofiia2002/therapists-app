@@ -71,7 +71,7 @@ na renderowanie do kolejnego komponentu.
 
 Do tworzenia kalendarzu została wykorzystana biblioteka 'v-calendar'. 
 <br><br>
-Kalendarz wyświetla wszystkie dostępne dni w kalendarzu. 
+Kalendarz wyświetla wszystkie dostępne dni konsultacji w kalendarzu. 
 <br><br>
 Przy kliknięciu na odpowiedni dzień istnieje możliwość obejrzenia dostępnych godzin konsultacji.
 
