@@ -31,9 +31,7 @@ export default {
   },
   methods: {
     submit() {
-      if (this.inputValue.replace(/\s/g, "")!==""){
-        this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, q: this.inputValue.trim(), page: 1 }});
-      }
+      this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, q: this.inputValue.trim(), page: 1 }});
     },
     setSearchValue(){
       if(this.$router.currentRoute.query.q!==undefined) {
