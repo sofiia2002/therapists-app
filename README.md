@@ -2,10 +2,9 @@
 
 ## Wstęp
 
-<p>Witaj. Tu znajduje się aplikacja webowa, która prezentuje zwróconej z endpointu listy terapeutów. 
-<br><br>
+Witaj. Tu znajduje się aplikacja webowa, która prezentuje zwróconej z endpointu listy terapeutów. 
+<br/><br/>
 Za pomocą tej aplikacji możesz wyszukiwać terapeutów według ich specjalizacji oraz <strong>filtrować</strong> wyniki według:
-</p>
 <ul>
   <li>Specjalizacji terapeutu</li>
   <li>Języków, którymi posługuje się terapeut</li>
@@ -20,7 +19,6 @@ Również można wyniki <strong>sortować</strong> według:
   <li>Oceny (rosnąco lub malejąco)</li> 
 </ul>
 
-
 ## Zasady działania
 
 ### Renderowanie filtrów oraz sortowań
@@ -30,12 +28,12 @@ odpowiedzialnych za specjalizacji oraz języki mogą różnić się od obecnych 
 Pozostałe listy opcji są statyczne.
 <br><br>
 Dlatego opcji kategorii specjalizacji oraz opcji kategorii wyboru języku dodawane są dynamicznie przy budowaniu strony: jest pobierana 
-lista wszystkich doktorów oraz wyciągniecię unikalnych opcji każdej z kategorii filtrów, które są renderowane na stronie. 
+lista wszystkich doktorów oraz wyciągniecię unikalnych opcji każdej z kategorii filtrów, które są renderowane na stronie.
 <br><br>
 
 ### Poszukiwanie oraz filtrowanie wyników
 
-Aplikacja korzysta z routingu, wszystkie dane niezbędne do poszukiwanua są wskazane w ścieżce. 
+Aplikacja korzysta z routingu, wszystkie dane niezbędne do poszukiwanua są wskazane w ścieżce.
 <br><br>
 Zrobione to zostało po to, żeby przy odświeżaniu strony wszyskie filtry, tryby sortowań, poszukiwane hasło oraz numer strony z wynikami 
 nie zostały stracone. Korzystanie ze ścieżki do przechowywania danych w danym przypadku pozwala lekko przerzucać między komponentami dane, 
@@ -47,16 +45,16 @@ Default'owo oraz jeżeli poszukiwane hasło jest puste, pokazywane są wszystkie
 
 ### Pobieranie danych
 
-Dane pobierane z serwera w momencie zmiany ścieżki (nie dotyczy opcji numeru strony) lub odświeżania strony, co pozwala użytkownikowi
-zawsze mieć najnowszej informacji z bazy danych, takie rozwiązanie również pozwala przechowywać tylko niezbędną informację, nie ma potrzeby
-przechowywać w pamięci kopię pobranych danych.
+Dane pobierane są z serwera w momencie zmiany ścieżki (nie dotyczy opcji numeru strony) lub odświeżania strony, co pozwala użytkownikowi 
+zawsze mieć najnowszej informacji z bazy danych, takie rozwiązanie również pozwala przechowywać tylko niezbędną informację, nie ma 
+potrzeby przechowywać w pamięci kopię pobranych danych.
 
 ### Wyświetlanie wyników
 
 Pobrane dane z serweru są filtrowane oraz sortowane w momencie otrzymania odpowiedzi z serwera ze strony front'u według danych w ścieżce, 
 przeglądarka przechowuje tylko i wyłącznie wyniki obecnego poszukiwania.
 <br><br>
-Dane podawane na stronę paczkami (według tego, na jakiej stronie znajduje się użytkowniek, oraz ile wyników znajdują się na jednej stronie).
+Dane podawane na stronę paczkami (według tego, na jakiej stronie znajduje się użytkowniek, oraz ile wyników zajdują się na jednej stronie).
 
 ### Kalendarz
 
