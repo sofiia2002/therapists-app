@@ -179,6 +179,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 1.5rem 0;
+  background-color: #f3f8febf;
 }
 
 .pages{

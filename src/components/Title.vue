@@ -24,7 +24,6 @@ export default {
 
 .top-nav{
     display: flex;
-    height: 90px;
     align-items: center;
     background-color: #ffffff;
     padding: .1rem 1rem;
@@ -58,7 +57,7 @@ export default {
     min-width: calc(170px - 1rem);
     margin-left: 2rem;
     border-bottom: none;
-    padding: 0;
+    padding: 1rem 0;
     font-size: 1.2rem;
     font-weight: bold;
     color: #0d3a71;

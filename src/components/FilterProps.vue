@@ -113,12 +113,11 @@ export default {
           five: false
         },
         price: {
-          from: 0,
-          to: 0
+          from: "",
+          to: ""
         },
         priceSort: "",
         rateSort: "",
-        maxPrice: 0,
         }
     },
     methods:{
@@ -128,19 +127,27 @@ export default {
         newQueryFilters['specs'] = Object.keys(this.specs).filter((spec)=>this.specs[spec]===true);
         newQueryFilters['langs'] = Object.keys(this.langs).filter((lang)=>this.langs[lang]===true);
         newQueryFilters['rate'] = Object.keys(this.rate).filter((rating)=>this.rate[rating]===true);
-        if(this.price['from']!==""&&this.price['from']!=0) newQueryFilters['from'] = this.price['from'];
-        if(this.price['to']!==""&&this.price['from']!=this.maxPrice) newQueryFilters['to'] = this.price['to'];
+        if(this.price['from']!=="") newQueryFilters['from'] = this.price['from'];
+        if(this.price['to']!=="") newQueryFilters['to'] = this.price['to'];
         if (this.priceSort!=="") {
           newQueryFilters['priceSort'] = this.priceSort;
         }
         if (this.rateSort!=="") {
           newQueryFilters['rateSort'] = this.rateSort;
         }
-        this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, ...newQueryFilters}});
+        this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, ...newQueryFilters}}).catch(error => {
+          if (error.name != "NavigationDuplicated") {
+            throw error;
+          }
+        });
       },
       resetFilters(){
         this.getFilters();
-        this.$router.push({ path: 'search', query: {q: this.$router.currentRoute.query.q, page: this.$router.currentRoute.query.page}});
+        this.$router.push({ path: 'search', query: {q: this.$router.currentRoute.query.q, page: this.$router.currentRoute.query.page}}).catch(error => {
+          if (error.name != "NavigationDuplicated") {
+          throw error;
+        }
+      });
       },
       getFilters(){
        axios
@@ -156,13 +163,6 @@ export default {
           res.data.map((data)=>newLangs = newLangs.concat(data.languages));
           newLangs = newLangs.filter((item, pos)=> newLangs.indexOf(item)== pos).sort();
           newLangs.map((lang)=>this.langs[lang]=false);
-  
-          let allPrices = res.data.map((data)=>data.price_per_hour).sort((a,b)=>b-a);
-          this.price['to']=allPrices[0];
-          this.maxPrice=allPrices[0];
-
-          this.priceSort= "";
-          this.rateSort= ""
         })
         .catch(error => console.log(error));
       },
@@ -187,7 +187,7 @@ export default {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 156px;
+    top: 150px;
     left: 24px;
     height: 0;
     width: calc(17vw + 2rem);

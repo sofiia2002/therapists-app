@@ -18,10 +18,10 @@ export default {
    top: 0;
    left: 0;
    right: 0;
+   bottom: 0;
    font-family: 'Quicksand', sans-serif;
    display: flex;
    flex-direction: column;
-   background-color: #f3f8febf;
  }
 
  ::-webkit-scrollbar{

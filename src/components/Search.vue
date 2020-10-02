@@ -31,7 +31,11 @@ export default {
   },
   methods: {
     submit() {
-      this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, q: this.inputValue.trim(), page: 1 }});
+      this.$router.push({ path: 'search', query: {...this.$router.currentRoute.query, q: this.inputValue.trim(), page: 1 }}).catch(error => {
+          if (error.name != "NavigationDuplicated") {
+            throw error;
+          }
+        });
     },
     setSearchValue(){
       if(this.$router.currentRoute.query.q!==undefined) {
@@ -45,7 +49,7 @@ export default {
     if (to !== from) {
       this.setSearchValue();
       this.filterShow = false;
-    }
+    } 
   }}
 }
 </script>
