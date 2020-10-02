@@ -2,7 +2,7 @@
 
 ## Wstęp
 
-Witaj. Tu znajduje się aplikacja webowa, która prezentuje zwróconej j z endpointu listy terapeutów. 
+Witaj. Tu znajduje się aplikacja webowa, która prezentuje zwróconej z endpointu listy terapeutów. 
 <br/><br/>
 Za pomocą tej aplikacji możesz filtrować wyniki według:
 <ul>
