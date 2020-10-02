@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VCalendar from 'v-calendar'
+import Fragment from 'vue-fragment'
 import App from './App.vue'
 import Home from './components/Home.vue'
 
 Vue.use(VCalendar);
 Vue.use(VueRouter);
+Vue.use(Fragment.Plugin);
 
 Vue.config.productionTip = false;
 

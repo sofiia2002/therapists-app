@@ -11,7 +11,7 @@
             <v-calendar :attributes='attributes' :min-date='new Date()'>
               <div slot="day-popover" slot-scope="{ attributes }">
                   <div v-for="{key, customData} in attributes" :key="key" class="date-time-container">
-                    <div v-for="day in customData" v-bind:key="day+Math.random()+Math.random()+Math.random()" class="date-time-span">
+                    <div v-for="day in customData" v-bind:key="day+Math.random()" class="date-time-span">
                       {{ day }}
                     </div>
                   </div>
@@ -44,7 +44,6 @@ export default {
   computed: {
     attributes() {
       return [
-        // Attributes for todos
         ...this.doctorDates.map(doctorDate => ({
           dates: doctorDate.date,
           dot: {

@@ -21,7 +21,7 @@ export default {
    font-family: 'Quicksand', sans-serif;
    display: flex;
    flex-direction: column;
-  background-color: #f3f8febf;
+   background-color: #f3f8febf;
  }
 
  ::-webkit-scrollbar{

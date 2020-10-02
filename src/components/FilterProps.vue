@@ -162,7 +162,7 @@ export default {
           this.maxPrice=allPrices[0];
 
           this.priceSort= "";
-          this.rateSort= "";
+          this.rateSort= ""
         })
         .catch(error => console.log(error));
       },

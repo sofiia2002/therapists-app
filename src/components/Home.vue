@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <fragment>
       <Title />
       <Search />
       <Body v-bind:query="query"/>
       <Footer />
-  </div>
+ </fragment>
 </template>
 
 <script>

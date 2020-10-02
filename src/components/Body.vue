@@ -50,7 +50,7 @@ export default {
       therapistsOnPage: [],
       therapistsPerPage: 7,
       therapistsNumber: 0,
-      therapists: [],
+      therapists: []
     }
   },
   mounted: function(){
@@ -76,7 +76,7 @@ export default {
           .then(res => 
           {
             let therapists = [];
-            if (Object.keys(this.query).length === 1 && this.query.page!==undefined && this.query.q===undefined) {
+            if (Object.keys(this.query).length === 1 && this.query.page!==undefined) {
               therapists = res.data;
               this.therapistsNumber = therapists.length;
               this.therapistsOnPage = therapists.slice((this.query.page-1)*this.therapistsPerPage, this.therapistsPerPage*this.query.page);
@@ -162,7 +162,7 @@ export default {
      if(to !== from) {
       let newTo = {...to.query, page: ""};
       let newFrom = {...from.query, page: ""};
-      if (JSON.stringify(newTo)!==JSON.stringify(newFrom)) {
+      if ((JSON.stringify(newTo)!==JSON.stringify(newFrom))||(Object.keys(to.query).length === 1 && to.query.page!==undefined)) {
         this.getUpdatedData();
       } else {
         this.therapistsOnPage = this.therapists.slice((this.query.page-1)*this.therapistsPerPage, this.therapistsPerPage*this.query.page);
@@ -223,6 +223,7 @@ export default {
 
 .no-result > :last-child{
   margin-top: .5rem;
+  margin-bottom: 1.5rem;
   font-size: 1.3rem;
 }
 

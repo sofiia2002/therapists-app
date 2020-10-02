@@ -41,7 +41,7 @@ export default {
     display: flex;
     margin-top: auto;
     height: 200px;
-    width: 100vw;
+    width: 100%;
     padding: 4.5rem 0;
     background-color: #1861a9b2;
     color: #ffffff;

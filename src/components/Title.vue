@@ -1,6 +1,6 @@
 <template>
   <div class="top-nav">
-    <div v-on:click="$router.push({ path: '/' })">
+    <div>
         <div class="las la-leaf"></div>
         <div>CALMSIE</div>
     </div>
