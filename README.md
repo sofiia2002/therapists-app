@@ -2,83 +2,71 @@
 
 ## Wstęp
 
-Witaj. Tu znajduje się aplikacja webowa, która prezentuje zwróconej j z endpointu listy terapeutów. 
-<br/><br/>
-Za pomocą tej aplikacji możesz filtrować wyniki według:
+<p>Witaj. Tu znajduje się aplikacja webowa, która prezentuje zwróconej z endpointu listy terapeutów. 
+<br><br>
+Za pomocą tej aplikacji możesz wyszukiwać terapeutów według ich specjalizacji oraz <strong>filtrować</strong> wyniki według:
+</p>
 <ul>
- <li>Specjalizacji terapeutu</li>
- <li>Języków, którymi posługuje się terapeut</li>
- <li>Oceny terapeuta</li>
- <li>Przedziału cenowego konsultacji</li>
+  <li>Specjalizacji terapeutu</li>
+  <li>Języków, którymi posługuje się terapeut</li>
+  <li>Oceny terapeuta</li>
+  <li>Przedziału cenowego konsultacji</li>
 </ul>
-Także można sortować wyniki według:
+<p>
+Również można wyniki <strong>sortować</strong> według:  
+</p>
 <ul>
   <li>Ceny (rosnąco lub malejąco)</li> 
   <li>Oceny (rosnąco lub malejąco)</li> 
 </ul>
-<br/>
-Również można wyszukiwać wyniki według specjalizacji.
-<br/><br/>
-Aplikacja pozwala wybierać dowolnej opcji dla każdego z filtrów oraz aplikować jednocześnie kilka trybów sortowania wyników.
-Zaaplikowane filtry można wyciśczyć za pomocą odpowiedniego przycisku.
+
 
 ## Zasady działania
 
 ### Renderowanie filtrów oraz sortowań
 
-Przy tworzeniu danej aplikacji trzymałam się założenia, że kategorię filtrów są niezmienne, ale z czasem lista opcji specjaliyacji 
-oraz języków może różnić się po dodawaniu doktorów do bazy danych lub ich wyrzuceniu z niej.
+Przy tworzeniu aplikacji trzymałam się założenia, że nazwy kategorii filtrów są niezmienne, również, że z czasem listy opcji filtrów 
+odpowiedzialnych za specjalizacji oraz języki mogą różnić się od obecnych (po dodawaniu doktorów do bazy danych lub wyrzuceniu z niej). 
+Pozostałe listy opcji są statyczne.
 <br><br>
-Dlatego inicjalizacja opcji specjalizacji oraz opcji wyboru języku są dodawane dynamicznie przy budowaniu strony: jest pobierana 
-lista wszystkich doktorów oraz wyciągniecię unikalnych opcji każdego z filtrów, które są renderowane się na stronie. 
+Dlatego opcji kategorii specjalizacji oraz opcji kategorii wyboru języku dodawane są dynamicznie przy budowaniu strony: jest pobierana 
+lista wszystkich doktorów oraz wyciągniecię unikalnych opcji każdej z kategorii filtrów, które są renderowane na stronie. 
 <br><br>
-Opcji filtru ocen oraz wszystkiech sortowań są statyczne.
 
 ### Poszukiwanie oraz filtrowanie wyników
 
 Aplikacja korzysta z routingu, wszystkie dane niezbędne do poszukiwanua są wskazane w ścieżce. 
 <br><br>
-Zrobione to zostało po to, żeby przy odświeżaniu strony wszyskie filtry, tryby sortowań, poszukiwane 
-hasło oraz numer striny z wynikami nie były są tracone.
-<br><br>
-Poszukiwane hasło jest dodawane do ścieżki z moment kliknięcia przycisku Enter, a wszystkie fitry po
-naoisnięciu przycisku "Apply". Podobie przy wyciścieniu filtrów (po nacisnięciu na "Clear") wszystkie
-filtry oraz tryby sortowania są wyrzucane z ścieżki. 
+Zrobione to zostało po to, żeby przy odświeżaniu strony wszyskie filtry, tryby sortowań, poszukiwane hasło oraz numer strony z wynikami 
+nie zostały stracone. Korzystanie ze ścieżki do przechowywania danych w danym przypadku pozwala lekko przerzucać między komponentami dane, 
+podążać za zmianami filtrów bez konieczności tworzenia nowych funkcji które będą rządzić odświeżaniem pewnych komponentów, ładowaniem 
+nowych danych itp. Również zmiana ścieżki w ciągu poszukiwania danych zapewnia lepszy user experience, można zobaczyć, że wszystko co 
+zaznaczyłeś i odesłałeś naprawdę zostało zaaplikowane.
 <br><br>
 Default'owo oraz jeżeli poszukiwane hasło jest puste, pokazywane są wszystkie wyniki.
 
 ### Pobieranie danych
 
-Dane pobierane z serwera w momencie zmiany ścieżki (nie dotyczy opcji numeru strony) lub odświeżania strony 
-(zabiezpieczenie przed dynamicznym dodawaniem danych do bazy danych, żeby użytkownik zawsze miał najnowszą wersje, 
-to może być zmienione na pobiranie wyłącznie po odświeżeniu strony w przypadku gdy istnieje możliwość preciężenia 
-serwera żądaniami). 
+Dane pobierane z serwera w momencie zmiany ścieżki (nie dotyczy opcji numeru strony) lub odświeżania strony, co pozwala użytkownikowi
+zawsze mieć najnowszej informacji z bazy danych, takie rozwiązanie również pozwala przechowywać tylko niezbędną informację, nie ma potrzeby
+przechowywać w pamięci kopię pobranych danych.
 
 ### Wyświetlanie wyników
 
-Pobrane dane z serweru są filtrowane oraz sortowane w momencie otrzymania odpowiedzi z serwera ze strony front'u według 
-zaaplikowanych użytkowniekiem na stronie, przeglądarka przechowuje tylko i wyłącznie wyniki obecnego poszukiwania i 
-nie zawiera zbędnych danych.
+Pobrane dane z serweru są filtrowane oraz sortowane w momencie otrzymania odpowiedzi z serwera ze strony front'u według danych w ścieżce, 
+przeglądarka przechowuje tylko i wyłącznie wyniki obecnego poszukiwania.
 <br><br>
-Dane po podawane na stronę paczkami (według tego, na jakiej stronie znajduje się użytkowniek, oraz ile wyników zajdują 
-się na jednej stronie).
-<br><br>
-Nie zwracając uwagi na to, że ścieżka zmienia się przy przejściu na następną lub poprzednią stronę, dane nie są pobierane
-kolejny raz, odfiltrowane wyniki już są w pamieci, dlatego wynik jest po prostu obcinany w potrzebnym miejscu oraz oddawany
-na renderowanie do kolejnego komponentu.
+Dane podawane na stronę paczkami (według tego, na jakiej stronie znajduje się użytkowniek, oraz ile wyników znajdują się na jednej stronie).
 
 ### Kalendarz
 
-Do tworzenia kalendarzu została wykorzystana biblioteka 'v-calendar'. 
+Do tworzenia kalendarzu wykorzystałam biblioteki 'v-calendar'. 
 <br><br>
-Kalendarz wyświetla wszystkie dostępne dni w kalendarzu. 
-<br><br>
-Przy kliknięciu na odpowiedni dzień istnieje możliwość obejrzenia dostępnych godzin konsultacji.
+Kalendarz wyświetla wszystkie dostępne dni konsultacji w kalendarzu. 
+Po kliknięciu na odpowiedni wyświetlane są dostępne godzin konsultacji.
 
 ### Uruchomienie
 ```
 npm i
 npm run serve
 ```
-
-#### Z wyrazami szacunku, Levchenko Sonya
