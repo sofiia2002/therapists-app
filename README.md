@@ -39,7 +39,7 @@ Opcji filtru ocen oraz wszystkiech sortowań są statyczne.
 Aplikacja korzysta z routingu, wszystkie dane niezbędne do poszukiwanua są wskazane w ścieżce. 
 <br><br>
 Zrobione to zostało po to, żeby przy odświeżaniu strony wszyskie filtry, tryby sortowań, poszukiwane 
-hasło oraz numer striny z wynikami nie były są tracone.
+hasło oraz numer strony z wynikami nie zostały stracone.
 <br><br>
 Poszukiwane hasło jest dodawane do ścieżki z moment kliknięcia przycisku Enter, a wszystkie fitry po
 naoisnięciu przycisku "Apply". Podobie przy wyciścieniu filtrów (po nacisnięciu na "Clear") wszystkie
