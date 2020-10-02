@@ -222,15 +222,16 @@ export default {
 @media (max-width: 700px) {
 .filter-box{
     position: absolute;
+    white-space: nowrap;
     top: 173px;
-    right: -250px;
+    right: 0;
     height: calc(100vh - 150px);
-    width: 250px;
-    transition: right .3s;
+    width: 0px;
+    transition: width .3s;
 }
 
 .show{
-    right: 0px;
+    width: 250px;
 }
 
 }
