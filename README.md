@@ -16,6 +16,11 @@ Wyniki można również **sortować** według:
 
 ## Zasady działania
 
+### Wykorzystane technologie
+
+- Vue.JS
+- REST API
+
 ### Renderowanie filtrów oraz sortowań
 
 Przy tworzeniu aplikacji trzymałam się założenia, że nazwy kategorii filtrów są niezmienne, oraz że z czasem listy opcji filtrów odpowiedzialnych za specjalizacji, oraz języki mogą różnić się od obecnych (po dodaniu lub wyrzuceniu lekarzy z bazy danych). Pozostałe listy opcji są statyczne.
